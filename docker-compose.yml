@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: daphne -u /tmp/daphne.sock myproject.asgi:application
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:latest
+
+  redis:
+    image: "redis:alpine"
